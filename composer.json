@@ -1,0 +1,26 @@
+{
+  "require-dev": {
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "wp-coding-standards/wpcs": "^2.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+    "brainmaestro/composer-git-hooks": "^2.8",
+    "phpstan/phpstan": "^0.12.91",
+    "szepeviktor/phpstan-wordpress": "^0.7.6",
+    "phpstan/extension-installer": "^1.1"
+  },
+  "scripts": {
+    "install-precommit": ["./git-hooks/setup.sh"],
+    "file-list": [
+      "echo $(git ls-files -m) | tr \" \" \"\\n\" > file_check",
+      "cat file_check"
+    ],
+    "check-php": [
+      "@file_list",
+      "phpcs --standard=phpcs.xml --file-list=file_check && rm -f file_check"
+    ],
+    "fix-php": [
+      "@file_list",
+      "phpcbf --standard=phpcs.xml --file-list=file_check && rm -f file_check"
+    ]
+  }
+}
